@@ -14,7 +14,8 @@
     "baseUrl": "./",
     "module": "commonjs",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/api/*": ["./src/api/*"]
     },
   },
   "include": ["**/*.ts", "src", "utils"],
