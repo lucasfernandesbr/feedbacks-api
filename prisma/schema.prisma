@@ -9,3 +9,29 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Users {
+  id         String @id @default(uuid())
+
+  name String
+  username String
+  avatar_url String
+  location String
+  bio String
+
+  feedbacks Feedbacks[] @relation("Feedback")
+  pinnedFeedbacks Feedbacks[] @relation("Pinned")
+
+  @@map("users")
+}
+
+model Feedbacks {
+  id         String @id  @default(uuid())
+  user_id String
+  user Users @relation("Feedback", fields: [user_id], references: [id], map: "feedbacks_user_id")
+
+  pinned_by String
+  pinnedBy Users @relation("Pinned", fields: [user_id], references: [id], map: "feedbacks_pinned_by_id")
+
+  @@map("feedbacks")
+}
