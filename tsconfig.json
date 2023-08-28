@@ -15,7 +15,8 @@
     "module": "commonjs",
     "paths": {
       "@/*": ["./src/*"],
-      "@/api/*": ["./src/api/*"]
+      "@/api/*": ["./src/api/*"],
+      "@/controllers/*": ["./src/controllers/*"]
     },
   },
   "include": ["**/*.ts", "src", "utils"],

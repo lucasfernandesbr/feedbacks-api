@@ -33,5 +33,7 @@ model Feedbacks {
   pinned_by String
   pinnedBy Users @relation("Pinned", fields: [user_id], references: [id], map: "feedbacks_pinned_by_id")
 
+  content String
+
   @@map("feedbacks")
 }
