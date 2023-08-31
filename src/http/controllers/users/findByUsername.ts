@@ -2,9 +2,9 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
 import { UsersRepository } from '@/repositories/users'
-import { FindUser } from '@/use-cases/users/find'
+import { FindByUsername } from '@/use-cases/users/findByUsername'
 
-export default async function execute(
+export default async function findByUsername(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
@@ -13,7 +13,7 @@ export default async function execute(
   })
 
   const usersRepository = new UsersRepository()
-  const findUser = new FindUser(usersRepository)
+  const findUser = new FindByUsername(usersRepository)
 
   const { username } = getUserSchema.parse(request.params)
 

@@ -1,12 +1,12 @@
 import { UsersRepositoryInterface } from '@/repositories/users/interface'
 
-import { FindUserData } from './types'
+import { FindByIdData } from './types'
 
-export class FindUser {
+export class FindById {
   constructor(private usersRepository: UsersRepositoryInterface) {}
 
-  async execute({ username }: FindUserData) {
-    const user = await this.usersRepository.find(username)
+  async execute({ id }: FindByIdData) {
+    const user = await this.usersRepository.findById(id)
 
     if (!user) {
       throw new Error('User not found.')

@@ -1,4 +1,5 @@
-import create from './create'
-import find from './find'
+import createUser from './create'
+import findByUsername from './findByUsername'
+import findById from './findById'
 
-export { create, find }
+export { createUser, findByUsername, findById }

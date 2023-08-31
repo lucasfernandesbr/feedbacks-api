@@ -13,7 +13,7 @@ export class Authenticate {
   constructor(private usersRepository: UsersRepositoryInterface) {}
 
   async execute({ username, password }: AuthenticateData) {
-    const doesUserExist = await this.usersRepository.find(username)
+    const doesUserExist = await this.usersRepository.findByUsername(username)
 
     if (doesUserExist) {
       const passwordHash = await compare(password, doesUserExist.password)

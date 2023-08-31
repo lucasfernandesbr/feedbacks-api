@@ -34,6 +34,7 @@ model Feedbacks {
   pinned_by String
   pinnedBy  Users  @relation("Pinned", fields: [user_id], references: [id], map: "feedbacks_pinned_by_id")
 
+  title      String
   content    String
   type       String
   created_at DateTime @default(now())

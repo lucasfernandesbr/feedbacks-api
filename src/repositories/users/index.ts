@@ -10,9 +10,20 @@ export class UsersRepository implements UsersRepositoryInterface {
     return user
   }
 
-  async find(username: string) {
+  async findByUsername(username: string) {
     const user = await prisma.users.findFirst({
       where: { username },
+      include: {
+        feedbacks: true,
+      },
+    })
+
+    return user
+  }
+
+  async findById(id: string) {
+    const user = await prisma.users.findFirst({
+      where: { id },
       include: {
         feedbacks: true,
       },

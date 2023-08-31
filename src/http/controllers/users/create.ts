@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { UsersRepository } from '@/repositories/users'
 import { Authenticate } from '@/use-cases/authenticate'
 
-export default async function create(
+export default async function createUser(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
