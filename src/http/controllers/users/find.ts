@@ -1,21 +1,21 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-import prisma from '@/api'
+import prisma from '@/lib/prisma'
 
 export default async function execute(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
   const getUserSchema = z.object({
-    id: z.string(),
+    username: z.string(),
   })
 
-  const { id } = getUserSchema.parse(request.params)
+  const { username } = getUserSchema.parse(request.params)
 
-  const feedback = await prisma.users.findMany({
+  const user = await prisma.users.findFirst({
     where: {
-      id,
+      username,
     },
 
     include: {
@@ -23,5 +23,5 @@ export default async function execute(
     },
   })
 
-  return reply.status(200).send(feedback)
+  return reply.status(200).send(user)
 }

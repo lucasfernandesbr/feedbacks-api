@@ -15,8 +15,10 @@
     "module": "commonjs",
     "paths": {
       "@/*": ["./src/*"],
-      "@/api/*": ["./src/api/*"],
-      "@/controllers/*": ["./src/controllers/*"]
+      "@/api/*": ["./src/lib/*"],
+      "@/controllers/*": ["./src/http/controllers/*"],
+      "@/repositories/*": ["./src/repositories/*"],
+      "@/use-cases/*": ["./src/use-cases/*"]
     },
   },
   "include": ["**/*.ts", "src", "utils"],
