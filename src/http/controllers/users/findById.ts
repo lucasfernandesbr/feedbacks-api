@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-import { UsersRepository } from '@/repositories/users'
-import { FindById } from '@/use-cases/users/findById'
+import { usersFactory } from '@/use-cases/factories/users'
 
 export default async function findById(
   request: FastifyRequest,
@@ -12,12 +11,11 @@ export default async function findById(
     id: z.string(),
   })
 
-  const usersRepository = new UsersRepository()
-  const findUser = new FindById(usersRepository)
+  const { findById } = usersFactory()
 
   const { id } = getUserSchema.parse(request.params)
 
-  const user = await findUser.execute({
+  const user = await findById.execute({
     id,
   })
 

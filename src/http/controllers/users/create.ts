@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-import { UsersRepository } from '@/repositories/users'
-import { Authenticate } from '@/use-cases/authenticate'
+import { authenticateFactory } from '@/use-cases/factories/authenticate'
 
 export default async function createUser(
   request: FastifyRequest,
@@ -13,10 +12,9 @@ export default async function createUser(
     password: z.string(),
   })
 
-  const usersRepository = new UsersRepository()
-  const authenticate = new Authenticate(usersRepository)
-
   const { username, password } = userSchema.parse(request.body)
+
+  const authenticate = authenticateFactory()
 
   const user = await authenticate.execute({
     username,

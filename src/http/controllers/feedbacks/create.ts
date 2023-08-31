@@ -1,9 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-import { CreateFeedback } from '@/use-cases/feedbacks/create'
-import { FeedbacksRepository } from '@/repositories/feedbacks'
-import { UsersRepository } from '@/repositories/users'
+import { feedbacksFactory } from '@/use-cases/factories/feedbacks'
 
 export default async function createFeedback(
   request: FastifyRequest,
@@ -25,13 +23,7 @@ export default async function createFeedback(
     type,
   } = feedbackSchema.parse(request.body)
 
-  const feedbacksRepository = new FeedbacksRepository()
-  const usersRepository = new UsersRepository()
-
-  const createFeedback = new CreateFeedback(
-    feedbacksRepository,
-    usersRepository,
-  )
+  const createFeedback = feedbacksFactory()
 
   const feedback = await createFeedback.execute({
     receiving_feedback_username,

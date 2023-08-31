@@ -1,3 +1,4 @@
+import CaseError from '@/use-cases/errors/CaseError'
 import { UsersRepositoryInterface } from '@/repositories/users/interface'
 
 import { FindByIdData } from './types'
@@ -9,7 +10,7 @@ export class FindById {
     const user = await this.usersRepository.findById(id)
 
     if (!user) {
-      throw new Error('User not found.')
+      throw new CaseError('User not found.', 404)
     }
 
     return user

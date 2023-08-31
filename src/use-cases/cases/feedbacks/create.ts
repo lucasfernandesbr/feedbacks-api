@@ -1,7 +1,9 @@
 import { UsersRepositoryInterface } from '@/repositories/users/interface'
 
-import { FeedbacksData } from './types'
+import CaseError from '@/use-cases/errors/CaseError'
 import { FeedbacksRepositoryInterface } from '@/repositories/feedbacks/interface'
+
+import { FeedbacksData } from './types'
 
 export class CreateFeedback {
   constructor(
@@ -20,14 +22,14 @@ export class CreateFeedback {
       await this.usersRepository.findByUsername(receiving_feedback_username)
 
     if (!doesReceivingFeedbackUserExist) {
-      throw new Error('User not found.')
+      throw new CaseError('User not found.', 404)
     }
 
     const doesGivingFeedbackUserExist =
       await this.usersRepository.findByUsername(giving_feedback_username)
 
     if (!doesGivingFeedbackUserExist) {
-      throw new Error('Pinned By User not found.')
+      throw new CaseError('Pinned By User not found.', 404)
     }
 
     const feedback = await this.feedbacksRepository.create({

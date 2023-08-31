@@ -1,6 +1,7 @@
 import { compare, hash } from 'bcryptjs'
 import axios from 'axios'
 
+import CaseError from '@/use-cases/errors/CaseError'
 import { UsersRepositoryInterface } from '@/repositories/users/interface'
 
 import { AuthenticateData, GithubUser } from './types'
@@ -15,13 +16,17 @@ export class Authenticate {
   async execute({ username, password }: AuthenticateData) {
     const doesUserExist = await this.usersRepository.findByUsername(username)
 
-    if (doesUserExist) {
-      const passwordHash = await compare(password, doesUserExist.password)
+    if (!doesUserExist) {
+      throw new CaseError('User not found.', 404)
+    }
 
-      if (!passwordHash) {
-        throw new Error('Incorrect password.')
-      }
+    const passwordCompare = await compare(password, doesUserExist.password)
 
+    if (!passwordCompare) {
+      throw new CaseError('Incorrect password.', 401)
+    }
+
+    if (doesUserExist && passwordCompare) {
       return doesUserExist
     }
 
@@ -30,9 +35,8 @@ export class Authenticate {
     )
 
     if (!getGithubData) {
-      throw new Error('Github user not found.')
+      throw new CaseError('Github user not found.', 404)
     }
-    console.log(getGithubData.data)
 
     const { name, avatar_url, bio } = getGithubData.data
     const passwordHash = await hash(password, 8)
