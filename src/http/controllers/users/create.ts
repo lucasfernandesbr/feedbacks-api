@@ -21,5 +21,14 @@ export default async function createUser(
     password,
   })
 
-  return reply.status(200).send(user)
+  const token = await reply.jwtSign(
+    {},
+    {
+      sign: {
+        sub: user.id,
+      },
+    },
+  )
+
+  return reply.status(200).send({ user, token })
 }

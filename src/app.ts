@@ -1,16 +1,22 @@
+import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import cors from '@fastify/cors'
+import { ZodError } from 'zod'
 
+import { env } from '@/env'
 import CaseError from '@/use-cases/errors/CaseError'
 
 import { appRoutes } from './http/routes'
-import { ZodError } from 'zod'
 
 export const app = fastify()
 
 app.register(cors, {
   origin: '*',
   methods: ['GET', 'POST'],
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
 })
 
 app.setErrorHandler((error, _, reply) => {
