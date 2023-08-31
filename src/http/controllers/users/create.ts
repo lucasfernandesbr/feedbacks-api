@@ -1,5 +1,4 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-
 import { z } from 'zod'
 
 import { UsersRepository } from '@/repositories/users'
@@ -19,10 +18,10 @@ export default async function create(
 
   const { username, password } = userSchema.parse(request.body)
 
-  const test = await authenticate.execute({
+  const user = await authenticate.execute({
     username,
     password,
   })
 
-  return reply.status(200).send(test)
+  return reply.status(200).send(user)
 }
