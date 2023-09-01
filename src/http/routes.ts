@@ -12,11 +12,7 @@ export async function appRoutes(app: FastifyInstance) {
 
   app.post('/session', createUser)
 
-  app.get(
-    '/users/username/:username',
-    { onRequest: [verifyJWT] },
-    findByUsername,
-  )
+  app.get('/users/username/:username', findByUsername)
   app.get('/users/id/:id', { onRequest: [verifyJWT] }, findById)
 
   app.post('/feedbacks', { onRequest: [verifyJWT] }, createFeedback)
