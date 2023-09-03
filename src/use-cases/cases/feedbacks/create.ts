@@ -40,6 +40,11 @@ export class CreateFeedback {
       type,
     })
 
-    return feedback
+    return {
+      title: feedback.title,
+      content: feedback.content,
+      type: feedback.type,
+      created_at: feedback.created_at,
+    }
   }
 }

@@ -13,6 +13,19 @@ export class FindByUsername {
       throw new CaseError('User not found.', 404)
     }
 
-    return user
+    const feedbacks = user.feedbacks.map(
+      ({ title, content, type, created_at }) => {
+        return { title, content, type, created_at }
+      },
+    )
+
+    return {
+      name: user.name,
+      username: user.username,
+      avatar_url: user.avatar_url,
+      bio: user.bio,
+      created_at: user.created_at,
+      feedbacks,
+    }
   }
 }

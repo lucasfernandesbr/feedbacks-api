@@ -4,8 +4,10 @@ import { FeedbacksRepositoryInterface, FeedbackData } from './interface'
 
 export class FeedbacksRepository implements FeedbacksRepositoryInterface {
   async create(data: FeedbackData) {
-    const user = await prisma.feedbacks.create({ data })
+    const feedback = await prisma.feedbacks.create({
+      data,
+    })
 
-    return user
+    return feedback
   }
 }

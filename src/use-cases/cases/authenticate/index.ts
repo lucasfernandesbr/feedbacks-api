@@ -27,7 +27,20 @@ export class Authenticate {
     }
 
     if (doesUserExist && passwordCompare) {
-      return doesUserExist
+      const feedbacks = doesUserExist.feedbacks.map(
+        ({ title, content, type, created_at }) => {
+          return { title, content, type, created_at }
+        },
+      )
+
+      return {
+        name: doesUserExist.name,
+        username: doesUserExist.username,
+        avatar_url: doesUserExist.avatar_url,
+        bio: doesUserExist.bio,
+        created_at: doesUserExist.created_at,
+        feedbacks,
+      }
     }
 
     const getGithubData: GithubUser = await api.get<GithubUser, GithubUser>(
@@ -49,6 +62,12 @@ export class Authenticate {
       bio,
     })
 
-    return user
+    return {
+      name: user.name,
+      username: user.username,
+      avatar_url: user.avatar_url,
+      bio: user.bio,
+      created_at: user.created_at,
+    }
   }
 }

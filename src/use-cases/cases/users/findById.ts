@@ -13,6 +13,12 @@ export class FindById {
       throw new CaseError('User not found.', 404)
     }
 
-    return user
+    return {
+      name: user.name,
+      username: user.username,
+      avatar_url: user.avatar_url,
+      bio: user.bio,
+      created_at: user.created_at,
+    }
   }
 }
