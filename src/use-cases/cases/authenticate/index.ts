@@ -42,6 +42,7 @@ export class Authenticate {
         avatar_url: user.avatar_url,
         bio: user.bio,
         created_at: user.created_at,
+        feedbacks: user.feedbacks,
       }
     }
 

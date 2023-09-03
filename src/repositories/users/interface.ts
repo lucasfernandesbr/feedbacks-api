@@ -9,12 +9,12 @@ export type Feedback = {
   type: string
   created_at: Date
 }
-export interface FindByUsername extends Users {
+export interface ResponseUser extends Users {
   feedbacks: Feedback[]
 }
 
 export type UsersRepositoryInterface = {
-  create(data: Prisma.UsersCreateInput): Promise<Users>
-  findByUsername(username: string): Promise<FindByUsername | null>
+  create(data: Prisma.UsersCreateInput): Promise<ResponseUser>
+  findByUsername(username: string): Promise<ResponseUser | null>
   findById(id: string): Promise<Users | null>
 }
