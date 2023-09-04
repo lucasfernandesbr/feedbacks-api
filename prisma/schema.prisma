@@ -32,7 +32,7 @@ model Feedbacks {
   user    Users  @relation("Feedback", fields: [user_id], references: [id], map: "feedbacks_user_id")
 
   pinned_by String
-  pinnedBy  Users  @relation("Pinned", fields: [user_id], references: [id], map: "feedbacks_pinned_by_id")
+  pinnedBy  Users  @relation("Pinned", fields: [pinned_by], references: [id], map: "feedbacks_pinned_by_id")
 
   title      String
   content    String

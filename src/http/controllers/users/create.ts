@@ -25,7 +25,7 @@ export default async function createUser(
     {},
     {
       sign: {
-        sub: user.id,
+        sub: user.username,
       },
     },
   )

@@ -28,4 +28,4 @@ CREATE TABLE "feedbacks" (
 ALTER TABLE "feedbacks" ADD CONSTRAINT "feedbacks_user_id" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "feedbacks" ADD CONSTRAINT "feedbacks_pinned_by_id" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "feedbacks" ADD CONSTRAINT "feedbacks_pinned_by_id" FOREIGN KEY ("pinned_by") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
